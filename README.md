@@ -9,10 +9,28 @@
  conda activate NTIRE2025RWFR
  
  # install python dependencies
+ cd ./models/team16_DCMoE
  pip install -r requirements.txt
  
  # install basicsr
  python basicsr/setup.py develop
+ ```
+
+ ## 🫧 Pretrain Model
+ The pre trained model folder should be arranged as follows
+ ```
+       model_zoo
+       └── team16_DCMoE
+          ├── CodeFormer
+          │   ├── CodeFormer
+          │   │   └── codeformer.pth
+          │   └── facelib
+          │       ├── detection_Resnet50_Final.pth
+          │       └── parsing_parsenet.pth
+          └── DiffBIR
+             ├── swinir.pth
+             └── v1_face.pth
+             └── v2-1_512-ema-pruned.ckpt
  ```
  
  ## :ferris_wheel: Test
