@@ -15,6 +15,22 @@ pip install -r requirements.txt
 python basicsr/setup.py develop
 ```
 
+## 🫧 Pretrain Moedl
+The pre trained model folder should be arranged as follows
+```
+      model_zoo
+      └── team16_DCMoE
+         ├── CodeFormer
+         │   ├── CodeFormer
+         │   │   └── codeformer.pth
+         │   └── facelib
+         │       ├── detection_Resnet50_Final.pth
+         │       └── parsing_parsenet.pth
+         └── DiffBIR
+            ├── swinir.pth
+            └── v1_face.pth
+            └── v2-1_512-ema-pruned.ckpt
+```
 ## :ferris_wheel: Test
 ```bash
 CUDA_VISIBLE_DEVICES=0 python test.py --valid_dir [path to val data dir] --test_dir [path to test data dir] --save_dir [path to your save dir] --model_id 0
