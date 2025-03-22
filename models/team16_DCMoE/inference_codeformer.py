@@ -83,7 +83,7 @@ def main(model_dir, input_path=None, output_path=None, device=None, args=None):
         suffix = args.suffix
         save_video_fps = args.save_video_fps
     
-    fidelity_weight = 0.5
+    fidelity_weight = 1.0
     upscale = 1
     has_aligned = True
 
