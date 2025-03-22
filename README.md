@@ -2,20 +2,21 @@
 ## :wrench: Installation
 ```
 # clone this repo
-git clone htt
+git clone https://github.com/Mrschen6/16.git
 
 # create environment
 conda create -n NTIRE2025RWFR python=3.10
 conda activate NTIRE2025RWFR
 
 # install python dependencies
+cd ./models/team16_DCMoE
 pip install -r requirements.txt
 
 # install basicsr
 python basicsr/setup.py develop
 ```
 
-## 🫧 Pretrain Moedl
+## 🫧 Pretrain Model
 The pre trained model folder should be arranged as follows
 ```
       model_zoo
