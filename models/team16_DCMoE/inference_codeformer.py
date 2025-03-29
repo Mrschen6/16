@@ -83,7 +83,7 @@ def main(model_dir, input_path=None, output_path=None, device=None, args=None):
         suffix = args.suffix
         save_video_fps = args.save_video_fps
     
-    fidelity_weight = 1.2
+    fidelity_weight = 1.0
     upscale = 1
     has_aligned = True
 
@@ -175,7 +175,7 @@ def main(model_dir, input_path=None, output_path=None, device=None, args=None):
         face_size=512,
         crop_ratio=(1, 1),
         det_model = detection_model,
-        save_ext='png',
+        save_ext='jpg',
         use_parse=True,
         model_dir='weights',
         device=device)
@@ -251,15 +251,15 @@ def main(model_dir, input_path=None, output_path=None, device=None, args=None):
         for idx, (cropped_face, restored_face) in enumerate(zip(face_helper.cropped_faces, face_helper.restored_faces)):
             # save cropped face
             if not has_aligned: 
-                save_crop_path = os.path.join(result_root, 'cropped_faces', f'{basename}_{idx:02d}.png')
+                save_crop_path = os.path.join(result_root, 'cropped_faces', f'{basename}_{idx:02d}.jpg')
                 imwrite(cropped_face, save_crop_path)
             # save restored face
             if has_aligned:
-                save_face_name = f'{basename}.png'
+                save_face_name = f'{basename}.jpg'
             else:
-                save_face_name = f'{basename}_{idx:02d}.png'
+                save_face_name = f'{basename}_{idx:02d}.jpg'
             if suffix is not None:
-                save_face_name = f'{save_face_name[:-4]}_{suffix}.png'
+                save_face_name = f'{save_face_name[:-4]}_{suffix}.jpg'
             save_restore_path = os.path.join(result_root, save_face_name)
             imwrite(restored_face, save_restore_path)
 
@@ -267,7 +267,7 @@ def main(model_dir, input_path=None, output_path=None, device=None, args=None):
         if not has_aligned and restored_img is not None:
             if suffix is not None:
                 basename = f'{basename}_{suffix}'
-            save_restore_path = os.path.join(result_root, 'final_results', f'{basename}.png')
+            save_restore_path = os.path.join(result_root, 'final_results', f'{basename}.jpg')
             imwrite(restored_img, save_restore_path)
 
     # save enhanced video
@@ -289,6 +289,20 @@ def main(model_dir, input_path=None, output_path=None, device=None, args=None):
         for f in video_frames:
             vidwriter.write_frame(f)
         vidwriter.close()
+    
+    # 遍历文件夹中的所有文件
+    for filename in os.listdir(result_root):
+        # 检查文件名是否以'.jpg'结尾
+        if filename.endswith('.jpg'):
+            # 构建旧的完整文件路径
+            old_file_path = os.path.join(result_root, filename)
+            
+            # 构建新的文件名和完整文件路径
+            new_filename = filename.replace('.jpg', '.png')
+            new_file_path = os.path.join(result_root, new_filename)
+            
+            # 重命名文件
+            os.rename(old_file_path, new_file_path)
 
     print(f'\nAll results are saved in {result_root}')
 
